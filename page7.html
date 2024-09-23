@@ -1,0 +1,464 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hack Mode</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+            color: #00ffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            animation: fall linear infinite, pulse 1.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(0, 255, 255, 1);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            }
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .logo img {
+            width: 120px;
+        }
+
+        .input-section {
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .input-section h2 {
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+
+        .input-section input {
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            border-radius: 5px;
+            padding: 10px;
+            color: #00ffff;
+            font-size: 18px;
+            outline: none;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .result-box {
+            color: yellow;
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: fadeInScale 0.5s forwards;
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .start-button,
+        .navigation-bar button {
+            background-color: transparent;
+            border: 2px solid #00ffff;
+            padding: 12px 24px;
+            color: #00ffff;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            margin: 5px;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .start-button:hover,
+        .navigation-bar button:hover {
+            background-color: rgba(0, 255, 255, 0.1);
+        }
+
+        .start-button:active,
+        .navigation-bar button:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+
+        .start-button.glow,
+        .navigation-bar .glow {
+            animation: glowEffect 1s infinite;
+        }
+
+        @keyframes glowEffect {
+            0% {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(0, 255, 255, 1);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            }
+        }
+
+        .navigation-bar {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .navigation-bar .button-row {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .navigation-bar .button {
+            margin: 5px;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .navigation-bar .top-button {
+            margin-bottom: 10px;
+        }
+
+        .navigation-bar .red-glow {
+            background-color: red;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            animation: glowRed 1s infinite;
+        }
+
+        .navigation-bar .green-glow {
+            background-color: green;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+            animation: glowGreen 1s infinite;
+        }
+
+        .navigation-bar .yellow-glow {
+            background-color: yellow;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+            animation: glowYellow 1s infinite;
+        }
+
+        @keyframes glowRed {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 0, 0, 1);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            }
+        }
+
+        @keyframes glowGreen {
+            0% {
+                box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(0, 255, 0, 1);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            }
+        }
+
+        @keyframes glowYellow {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 255, 0, 1);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+            }
+        }
+
+        /* Contact Button Styles */
+        .contact-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 255, 255, 0.1);
+            border: 2px solid #00ffff;
+            padding: 10px 20px;
+            color: #00ffff;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            z-index: 10;
+        }
+
+        .contact-button:hover {
+            background-color: rgba(0, 255, 255, 0.2);
+        }
+
+        .contact-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+
+        /* Connecting Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border-radius: 5px;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        .popup#connecting {
+            background-color: #333;
+        }
+
+        .popup#results {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Container for the neon circles -->
+    <div class="container"></div>
+
+    <!-- Logo section -->
+    <div class="logo">
+        <img src="logo7.jpg" alt="Logo">
+    </div>
+
+    <!-- Contact Button -->
+    <button class="contact-button" onclick="contact()">Contact</button>
+
+    <!-- Connecting Popup -->
+    <div id="connecting" class="popup">Connecting to server...</div>
+
+    <!-- Results Popup -->
+    <div id="results" class="popup"></div>
+
+    <!-- Container for input and result -->
+    <div class="input-section">
+        <h2>Enter Last 3 Digits:</h2>
+        <input type="text" id="digitInput" maxlength="3" placeholder="000">
+        <div id="result" class="result-box"></div>
+        <button id="startButton" class="start-button" onclick="startHack()">Start Hack</button>
+    </div>
+
+    <!-- Navigation bar -->
+    <div class="navigation-bar">
+        <div class="button-row">
+            <button id="colorHackButton" class="button" onclick="toggleColorHack()">Color Hack</button>
+            <button id="sizeHackButton" class="button" onclick="toggleSizeHack()">Size Hack</button>
+        </div>
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="hackAudio" src="hack-sound.mp3" preload="auto"></audio>
+
+    <script>
+        // Neon Circle Rain Script
+        const container = document.querySelector('.container');
+
+        function createCircle() {
+            const circle = document.createElement('div');
+            circle.classList.add('circle');
+
+            // Random size for each circle
+            const size = Math.random() * 50 + 10 + 'px';
+            circle.style.width = size;
+            circle.style.height = size;
+
+            // Random horizontal position for each circle
+            const leftPosition = Math.random() * 100 + 'vw';
+            circle.style.left = leftPosition;
+
+            // Random duration for the fall animation
+            const duration = Math.random() * 5 + 5 + 's';
+            circle.style.animationDuration = duration;
+
+            // Add the circle to the container
+            container.appendChild(circle);
+
+            // Remove the circle once the animation ends (when it falls out of the screen)
+            setTimeout(() => {
+                container.removeChild(circle);
+            }, parseFloat(duration) * 1000);
+        }
+
+        // Continuously create circles every 300 milliseconds
+        setInterval(createCircle, 300);
+
+        // Hack Mode Script
+        const resultBox = document.getElementById('result');
+        const startButton = document.getElementById('startButton');
+        const colorHackButton = document.getElementById('colorHackButton');
+        const sizeHackButton = document.getElementById('sizeHackButton');
+        const digitInput = document.getElementById('digitInput');
+        const hackAudio = document.getElementById('hackAudio');
+        const connectingPopup = document.getElementById('connecting');
+        const resultsPopup = document.getElementById('results');
+
+        let isColorHackMode = false;
+        let isSizeHackMode = false;
+
+        function startHack() {
+            const inputValue = digitInput.value;
+
+            if (inputValue.length === 3) {
+                // Show the connecting popup
+                connectingPopup.classList.add('active');
+
+                // Simulate server connection delay (2-5 seconds)
+                setTimeout(() => {
+                    // Hide the connecting popup
+                    connectingPopup.classList.remove('active');
+
+                    // Show the results popup
+                    resultsPopup.classList.add('active');
+
+                    // Display results based on selected mode
+                    if (isColorHackMode) {
+                        const colors = ['Red', 'Green'];
+                        const result = colors[Math.floor(Math.random() * colors.length)];
+                        resultBox.textContent = result;
+                        resultBox.style.color = result.toLowerCase();
+                    } else if (isSizeHackMode) {
+                        const sizes = ['Big', 'Small'];
+                        const result = sizes[Math.floor(Math.random() * sizes.length)];
+                        resultBox.textContent = result;
+                        resultBox.style.fontSize = result === 'Big' ? '36px' : '12px';
+                    } else {
+                        resultBox.textContent = 'Select a hack mode!';
+                    }
+
+                    // Play the audio
+                    hackAudio.play();
+
+                    // Optionally, hide results popup after some time
+                    setTimeout(() => {
+                        resultsPopup.classList.remove('active');
+                    }, 3000); // Hide results popup after 3 seconds
+
+                }, Math.random() * 3000 + 2000); // Random delay between 2 and 5 seconds
+
+            } else {
+                resultBox.textContent = 'Please enter a 3-digit code';
+                resultBox.style.color = 'yellow';
+            }
+
+            startButton.classList.add('glow');
+            setTimeout(() => {
+                startButton.classList.remove('glow');
+            }, 1000);
+        }
+
+        function toggleColorHack() {
+            isColorHackMode = !isColorHackMode;
+            colorHackButton.classList.toggle('green-glow', isColorHackMode);
+            sizeHackButton.classList.remove('yellow-glow');
+            isSizeHackMode = false;
+            resultBox.textContent = ''; // Clear result on mode switch
+        }
+
+        function toggleSizeHack() {
+            isSizeHackMode = !isSizeHackMode;
+            sizeHackButton.classList.toggle('yellow-glow', isSizeHackMode);
+            colorHackButton.classList.remove('green-glow');
+            isColorHackMode = false;
+            resultBox.textContent = ''; // Clear result on mode switch
+        }
+
+        function contact() {
+            // Open Telegram chat link
+            window.open('https://t.me/jeanson_jemes_ancheta', '_blank');
+        }
+    </script>
+</body>
+</html>\

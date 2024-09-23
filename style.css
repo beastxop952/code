@@ -1,0 +1,170 @@
+/* General Reset */
+body, h2, input, a {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  margin: 0;
+  padding: 0;
+  background: url('logo.jpg') no-repeat center center fixed; /* Update with the path to your image */
+  background-size: cover; /* Ensure the background covers the entire viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Square Container */
+.square {
+  position: relative;
+  width: 90vw; /* Responsive width */
+  max-width: 400px; /* Maximum width */
+  height: 90vw; /* Responsive height */
+  max-height: 400px; /* Maximum height */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Animated Circles */
+.square i {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--clr);
+  animation: move 4s linear infinite;
+}
+
+.square i:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.square i:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.square i:nth-child(3) {
+  animation-delay: 2s;
+}
+
+@keyframes move {
+  0% { transform: translate(-100%, -100%) scale(0); }
+  50% { transform: translate(100%, 100%) scale(1); }
+  100% { transform: translate(-100%, -100%) scale(0); }
+}
+
+/* Login Form Styling */
+.login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  z-index: 1;
+}
+
+.login h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.inputBx {
+  margin-bottom: 15px;
+}
+
+.inputBx input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Submit Button Styling */
+.inputBx input[type="submit"] {
+  background-color: #00ff0a;
+  color: #fff;
+  cursor: pointer;
+}
+
+.inputBx input[type="submit"]:hover {
+  background-color: #00e600;
+}
+
+/* Links Styling */
+.links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 400px;
+  border-radius: 5px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .square {
+      width: 95vw;
+      height: 95vw;
+  }
+
+  .login h2 {
+      font-size: 20px;
+  }
+
+  .inputBx input {
+      padding: 10px;
+      font-size: 14px;
+  }
+
+  .links a {
+      font-size: 12px;
+  }
+}

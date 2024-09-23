@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Our Telegram Group</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #00FF00; /* Matrix green text color */
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)); /* Dark gradient overlay */
+            text-align: center;
+        }
+        .fullscreen-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .fullscreen-bg video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            background: url('https://www.w3schools.com/html/mov_bbb.mp4') no-repeat;
+            background-size: cover;
+        }
+        .message {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Green glow effect */
+        }
+        .sub-message {
+            font-size: 20px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.5); /* Slight green glow effect */
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 18px;
+            color: #000;
+            background-color: rgba(0, 255, 0, 0.8); /* Semi-transparent matrix green */
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Dark shadow for better contrast */
+        }
+        .button:hover {
+            background-color: rgba(0, 255, 0, 1); /* Fully opaque on hover */
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="fullscreen-bg">
+        <video autoplay muted loop>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="content">
+        <p class="message">🔧 We’re Busy Building Something Amazing!</p>
+        <p class="sub-message">Hang tight and stay updated by joining our Telegram group.</p>
+        <a href="https://t.me/Wolfdollar" class="button" target="_blank">Join Telegram Group</a>
+    </div>
+</body>
+</html>
